@@ -4,7 +4,7 @@ class InputBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: 'new note title',
+      title: 'Note Title',
     };
     this.onSubmit = this.onSubmit.bind(this);
     this.onInputChange = this.onInputChange.bind(this);

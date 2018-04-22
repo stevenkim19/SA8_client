@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Immutable from 'immutable';
+import Draggable from 'react-draggable';
 import './style.scss';
 import Note from './components/note';
 import InputBar from './components/add_input';
@@ -14,6 +15,8 @@ class App extends Component {
     };
     this.onDelete = this.onDelete.bind(this);
     this.onAdd = this.onAdd.bind(this);
+    // this.onUpdate = this.onUpdate.bind(this);
+    // this.onDrag = this.onDrag.bind(this);
   }
   // Deletion
   onDelete(id) {
@@ -23,8 +26,7 @@ class App extends Component {
   }
   // Addition
   onAdd(txt) {
-    console.log(txt);
-    const note = {
+    let note = {
       title: 'dummy note title',
       text: 'dummy note!',
       x: 100,
@@ -37,19 +39,41 @@ class App extends Component {
     });
   }
 
-  // Updates
-  // onUpdate() {
+  // update text field with edited text
+  // onUpdate(id, e) {
   //   this.setState({
-  //     notes: this.state.notes.update(id, (n) => { return Object.assign({}, n, fields); }),
+  //     notes: this.state.notes.update(id, (n) => { return Object.assign({ text: txt }, n - 1, txt); }),
   //   });
   // }
+  // Drag
+  onDrag(e, ui, id) {
+    this.setState({
+      notes: this.state.notes.set(this.state.id, () => {
+        note.x = e.ui.x;
+        note.y = e.ui.y;
+      }),
+    });
+  }
 
   render() {
     return (
-      <div>
+      <div id="mainpart">
         <InputBar addTitle={this.onAdd} />
         {this.state.notes.entrySeq().map(([id, note]) => {
-          return <Note id={id} key={id} note={note} onDeleteClick={this.onDelete} />;
+          return (
+            <Draggable
+              handle=".note-mover"
+              grid={[25, 25]}
+              defaultPosition={{ x: 50, y: 50 }}
+              position={position}
+              onStart={this.onStartDrag}
+              onDrag={this.onDrag}
+              onStop={this.onStopDrag}
+            >
+              <Note id={id} key={id} note={note} onDeleteClick={this.onDelete} />
+              {/* // onEditNote={this.onUpdate} /> */}
+            </Draggable>
+          );
         })}
       </div>
     );

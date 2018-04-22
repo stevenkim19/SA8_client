@@ -1,19 +1,33 @@
+#mainpart {
+  font-family: 'IBM Plex Sans Condensed', sans-serif;
+  font-size: 25px;
+}
+
 #main {
   display: flex;
   align-items: center;
 }
+
+// Input Bar Component
 
 #search-bar {
   display: flex;
   flex-direction: row;
 }
 
-#wrapper {
-  background-color: blue;
+// Note Component
+.wrapper {
+  border: black solid;
   display: flex;
   flex-direction: column;
 }
-
+.titlepart {
+  display: flex;
+}
+#trash {
+  margin-left: 30px;
+  font-size: 30px;
+}
 .editing {
   background-color: #B7ABAB;
 }
