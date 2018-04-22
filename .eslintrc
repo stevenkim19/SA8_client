@@ -6,6 +6,8 @@
         "es6": true
     },
     "rules": {
+        "react/no-danger": 0,
+        "no-undef": 0,
         "prefer-const": 0,
         "jsx-a11y/no-static-element-interactions": 0,
         "strict": 0,

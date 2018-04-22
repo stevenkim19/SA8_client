@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Draggable from 'react-draggable';
+import marked from 'marked';
 
 class Note extends Component {
   constructor(props) {
@@ -9,11 +11,15 @@ class Note extends Component {
     this.renderSomeSection = this.renderSomeSection.bind(this);
     this.delete = this.delete.bind(this);
     this.edit = this.edit.bind(this);
-    // this.onInputChangeNote = this.onInputChangeNote.bind(this);
+    this.onInputChangeNote = this.onInputChangeNote.bind(this);
+    this.onDrag = this.onDrag.bind(this);
   }
-  // onInputChangeNote(event) {
-  //   this.props.onEditNote(event.target.value);
-  // }
+  onInputChangeNote(event) {
+    this.props.onEditNote(this.props.id, { text: event.target.value });
+  }
+  onDrag(e, ui) {
+    this.props.onUpdateHandle(this.props.id, { x: ui.x, y: ui.y });
+  }
   delete(event) {
     this.props.onDeleteClick(this.props.id);
   }
@@ -25,22 +31,19 @@ class Note extends Component {
       this.setState({ isEditing: false });
     }
   }
-  // drag(event, ui) {
-  //   this.props.onDrag(event, ui, this.props.id);
-  // }
+
   renderSomeSection() {
     if (this.state.isEditing) {
-      console.log(this.props);
       return (
         <div className="wrapper">
           <div className="titlepart">
             {this.props.note.title}
             <i onClick={this.delete} className="fa fa-trash-o" id="trash" />
             <i onClick={this.edit} className="fa fa-pencil" id="pencil" />
-            <i onClick={this.drag} className="fa fa-arrows-alt" id="drag" />
+            <i className="fa fa-arrows-alt draghandler" id="drag" />
           </div>
           <div>
-            <input onChange={this.onInputChangeNote} value="Type something!" /> {/* allow user to edit  */}
+            <input onChange={this.onInputChangeNote} value={this.props.note.text} /> {/* allow user to edit  */}
           </div>
         </div>
       );
@@ -51,10 +54,10 @@ class Note extends Component {
             {this.props.note.title}
             <i onClick={this.delete} className="fa fa-trash-o" id="trash" />
             <i onClick={this.edit} className="fa fa-pencil" id="pencil" />
-            {/* <i onClick={this.drag} className="fa fa-arrows-alt" id="drag" /> */}
+            <i onClick={this.onDrag} className="fa fa-arrows-alt" id="drag" />
           </div>
           <div>
-            {this.props.note.text}
+            <div className="noteBody" dangerouslySetInnerHTML={{ __html: marked(this.props.note.text || '') }} />
           </div>
         </div>
       );
@@ -63,7 +66,14 @@ class Note extends Component {
   render() {
     return (
       <div>
-        {this.renderSomeSection()}
+        <Draggable
+          handle=".draghandler"
+          grid={[25, 25]}
+          defaultPosition={{ x: 50, y: 50 }}
+          onDrag={this.onDrag}
+        >
+          {this.renderSomeSection()}
+        </Draggable>
       </div>
     );
   }

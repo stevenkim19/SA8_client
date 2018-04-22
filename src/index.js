@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Immutable from 'immutable';
-import Draggable from 'react-draggable';
 import './style.scss';
 import Note from './components/note';
 import InputBar from './components/add_input';
@@ -15,16 +14,22 @@ class App extends Component {
     };
     this.onDelete = this.onDelete.bind(this);
     this.onAdd = this.onAdd.bind(this);
-    // this.onUpdate = this.onUpdate.bind(this);
-    // this.onDrag = this.onDrag.bind(this);
+    this.onUpdate = this.onUpdate.bind(this);
+    // this.componentDidMount = this.componentDidMount.bind(this);
   }
-  // Deletion
+  // Communicate with Firebase
+  // componentDidMount() {
+  //   firebasedb.fetchNotes((notes) => {
+  //     this.setState({ notes: Immutable.Map(notes) });
+  //   });
+  // }
+  // Delete a note
   onDelete(id) {
     this.setState({
       notes: this.state.notes.delete(id),
     });
   }
-  // Addition
+  // Add a note
   onAdd(txt) {
     let note = {
       title: 'dummy note title',
@@ -40,18 +45,9 @@ class App extends Component {
   }
 
   // update text field with edited text
-  // onUpdate(id, e) {
-  //   this.setState({
-  //     notes: this.state.notes.update(id, (n) => { return Object.assign({ text: txt }, n - 1, txt); }),
-  //   });
-  // }
-  // Drag
-  onDrag(e, ui, id) {
+  onUpdate(id, fields) {
     this.setState({
-      notes: this.state.notes.set(this.state.id, () => {
-        note.x = e.ui.x;
-        note.y = e.ui.y;
-      }),
+      notes: this.state.notes.update(id, (n) => { return Object.assign({}, n, fields); }),
     });
   }
 
@@ -61,18 +57,7 @@ class App extends Component {
         <InputBar addTitle={this.onAdd} />
         {this.state.notes.entrySeq().map(([id, note]) => {
           return (
-            <Draggable
-              handle=".note-mover"
-              grid={[25, 25]}
-              defaultPosition={{ x: 50, y: 50 }}
-              position={position}
-              onStart={this.onStartDrag}
-              onDrag={this.onDrag}
-              onStop={this.onStopDrag}
-            >
-              <Note id={id} key={id} note={note} onDeleteClick={this.onDelete} />
-              {/* // onEditNote={this.onUpdate} /> */}
-            </Draggable>
+            <Note id={id} key={id} note={note} onDeleteClick={this.onDelete} onUpdateHandle={this.onUpdate} />
           );
         })}
       </div>
