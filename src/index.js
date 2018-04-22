@@ -16,16 +16,17 @@ class App extends Component {
     this.onAdd = this.onAdd.bind(this);
   }
   // Deletion
-  onDelete() {
+  onDelete(id) {
     this.setState({
-      notes: this.state.notes.delete(this.state.id),
+      notes: this.state.notes.delete(id),
     });
   }
   // Addition
   onAdd(txt) {
+    console.log(txt);
     const note = {
-      title: txt,
-      text: '',
+      title: 'dummy note title',
+      text: 'dummy note!',
       x: 100,
       y: 100,
       zIndex: 0,
@@ -45,10 +46,11 @@ class App extends Component {
 
   render() {
     return (
-      // Fill in with note component & input
       <div>
         <InputBar addTitle={this.onAdd} />
-        <Note displayTitle={this.onAdd} displayContent={this.onAdd} />
+        {this.state.notes.entrySeq().map(([id, note]) => {
+          return <Note id={id} key={id} note={note} onDeleteClick={this.onDelete} />;
+        })}
       </div>
     );
   }

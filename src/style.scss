@@ -9,5 +9,11 @@
 }
 
 #wrapper {
-  background-color: red;
+  background-color: blue;
+  display: flex;
+  flex-direction: column;
+}
+
+.editing {
+  background-color: #B7ABAB;
 }
