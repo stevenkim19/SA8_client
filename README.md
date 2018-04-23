@@ -8,7 +8,7 @@ https://github.com/dartmouth-cs52-18S/lab3-stevenkim19
 stevenkim-cs52-react-notes.surge.sh
 
 ## Firebase URL/Data
-https://console.firebase.google.com/u/0/project/skim-cs52-lab3/database/skim-cs52-lab3/data
+https://skim-cs52-lab3.firebaseio.com/notes
 
 ### Accomplishments
 I successfully implemented the following features: <br />
