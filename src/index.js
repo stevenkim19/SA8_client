@@ -4,6 +4,7 @@ import Immutable from 'immutable';
 import './style.scss';
 import Note from './components/note';
 import InputBar from './components/add_input';
+import * as db from './services/datastore';
 
 class App extends Component {
   constructor(props) {
@@ -15,14 +16,18 @@ class App extends Component {
     this.onDelete = this.onDelete.bind(this);
     this.onAdd = this.onAdd.bind(this);
     this.onUpdate = this.onUpdate.bind(this);
-    // this.componentDidMount = this.componentDidMount.bind(this);
+    // this.deleteNotes = this.deleteNotes.bind(this);
   }
-  // Communicate with Firebase
-  // componentDidMount() {
-  //   firebasedb.fetchNotes((notes) => {
-  //     this.setState({ notes: Immutable.Map(notes) });
-  //   });
-  // }
+  // Calling fetchNotesFirebase from Firebase
+  componentDidMount() {
+    db.fetchNotesFirebase((notes) => {
+      console.log(notes);
+      this.setState({
+        notes: this.state.notes.set(this.state.id + 1, note),
+      });
+    });
+  }
+
   // Delete a note
   onDelete(id) {
     this.setState({
@@ -32,7 +37,7 @@ class App extends Component {
   // Add a note
   onAdd(txt) {
     let note = {
-      title: 'dummy note title',
+      title: txt,
       text: 'dummy note!',
       x: 100,
       y: 100,
@@ -44,12 +49,28 @@ class App extends Component {
     });
   }
 
+  // onAddGeneral(fields) {
+  //   this.setState({
+  //     notes: this.state.notes.set(),
+  //   });
+  // }
+
   // update text field with edited text
   onUpdate(id, fields) {
     this.setState({
       notes: this.state.notes.update(id, (n) => { return Object.assign({}, n, fields); }),
     });
   }
+
+  // Calling deleteNotesFirebase from Firebase
+  // deleteNotes() {
+  //   db.deleteNotesFirebase((notes) => {
+  //     this.onDelete();
+  //   });
+  // }
+
+  // Calling deleteNotesFirebase from Firebase
+
 
   render() {
     return (

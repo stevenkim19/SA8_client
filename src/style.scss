@@ -3,11 +3,6 @@
   font-size: 25px;
 }
 
-#main {
-  display: flex;
-  align-items: center;
-}
-
 // Input Bar Component
 
 #search-bar {
@@ -17,19 +12,36 @@
 
 // Note Component
 .wrapper {
-  border: black solid;
+  width: 350px;
+  height: 200px;
+  background-color: #F7BF8F;
   display: flex;
   flex-direction: column;
 }
+.inputbars {
+  width: 200px;
+  height: 50px;
+}
+.inputbars, #submitbtn {
+  font-size: 20px;
+  font-family: 'Quicksand', sans-serif;
+}
+#submitbtn:hover {
+  box-shadow: 0 0 30px #212121;
+}
 .titlepart {
   display: flex;
+  flex-direction: row;
 }
 #trash {
-  margin-left: 30px;
-  font-size: 30px;
+  margin-left: 50px;
+  font-size: 20px;
 }
 .editing {
   background-color: #B7ABAB;
+}
+#drag {
+  border: black solid;
 }
 .draghandler {
   border: black solid;

@@ -15,7 +15,7 @@ class Note extends Component {
     this.onDrag = this.onDrag.bind(this);
   }
   onInputChangeNote(event) {
-    this.props.onEditNote(this.props.id, { text: event.target.value });
+    this.props.onUpdateHandle(this.props.id, { text: event.target.value });
   }
   onDrag(e, ui) {
     this.props.onUpdateHandle(this.props.id, { x: ui.x, y: ui.y });
@@ -43,7 +43,7 @@ class Note extends Component {
             <i className="fa fa-arrows-alt draghandler" id="drag" />
           </div>
           <div>
-            <input onChange={this.onInputChangeNote} value={this.props.note.text} /> {/* allow user to edit  */}
+            <input onChange={this.onInputChangeNote} value={this.props.note.text} className="inputbars" /> {/* allow user to edit  */}
           </div>
         </div>
       );

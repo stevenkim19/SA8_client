@@ -18,8 +18,8 @@ class InputBar extends Component {
   render() {
     return (
       <div id="search-bar">
-        <input onChange={this.onInputChange} value={this.state.title} />
-        <button onClick={this.onSubmit}> Submit </button>
+        <input onChange={this.onInputChange} value={this.state.title} className="inputbars" />
+        <button onClick={this.onSubmit} id="submitbtn"> Create Note </button>
       </div>
     );
   }
