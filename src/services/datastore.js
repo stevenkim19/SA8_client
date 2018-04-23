@@ -31,8 +31,8 @@ export function createNoteFirebase(txt) {
   let newNote = {
     title: txt,
     text: '',
-    x: 100,
-    y: 100,
+    x: 0,
+    y: 0,
     zIndex: 0,
   };
   Firebase.database().ref('notes').push(newNote);
@@ -41,11 +41,4 @@ export function createNoteFirebase(txt) {
 // Updating notes
 export function updateNotesFirebase(id, note) {
   Firebase.database().ref('notes').child(id).update(note);
-  // if (fields.x !== 100 || fields.y !== 100) {
-  //   console.log('moved!');
-  //   Firebase.database().ref('notes').child(id).update({
-  //     x: fields.x,
-  //     y: fields.y,
-  //   });
-  // }
 }

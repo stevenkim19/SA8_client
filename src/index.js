@@ -42,8 +42,8 @@ class App extends Component {
       let note = {
         title: txt,
         text: 'dummy note!',
-        x: 100,
-        y: 100,
+        x: 0,
+        y: 0,
         zIndex: 0,
       };
       this.setState({

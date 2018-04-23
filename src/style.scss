@@ -19,7 +19,7 @@
   flex-direction: column;
 }
 .inputbars {
-  width: 200px;
+  width: 344px;
   height: 50px;
 }
 .inputbars, #submitbtn {
@@ -36,6 +36,7 @@
 .titlepart {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 }
 #trash {
   margin-left: 50px;
@@ -47,8 +48,11 @@
   background-color: #B7ABAB;
 }
 #drag {
-  border: black solid;
+  border: none;
 }
 .draghandler {
   border: black solid;
+}
+.notebody > * {
+  margin-top: 0;
 }

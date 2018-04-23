@@ -1,15 +1,15 @@
 {
-  "name": "SA3",
+  "name": "Lab3",
   "version": "1.0.0",
   "main": "src/index.js",
-  "repository": "https://github.com/dartmouth-cs52-18S/starterpack-stevenkim19.git",
+  "repository": "https://github.com/dartmouth-cs52-18S/lab3-stevenkim19.git",
   "author": "Steven Kim <steven.kim.19@dartmouth.edu>",
   "license": "MIT",
   "scripts": {
     "start": "NODE_ENV=development webpack-serve ./webpack.config.js",
     "build": "yarn clean; NODE_ENV=production webpack --colors",
     "clean": "rimraf dist",
-    "deploy": "yarn build; surge -p dist -d stevenkim-cs52-starter.surge.sh; yarn clean"
+    "deploy": "yarn build; surge -p dist -d stevenkim-cs52-react-notes.surge.sh; yarn clean"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
