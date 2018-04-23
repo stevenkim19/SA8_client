@@ -52,9 +52,11 @@ class Note extends Component {
         <div className="wrapper">
           <div className="titlepart">
             {this.props.note.title}
-            <i onClick={this.delete} className="fa fa-trash-o" id="trash" />
-            <i onClick={this.edit} className="fa fa-pencil" id="pencil" />
-            <i onClick={this.onDrag} className="fa fa-arrows-alt" id="drag" />
+            <div className="buttonslist">
+              <i onClick={this.delete} className="fa fa-trash-o" id="trash" />
+              <i onClick={this.edit} className="fa fa-pencil" id="pencil" />
+              <i onClick={this.onDrag} className="fa fa-arrows-alt" id="drag" />
+            </div>
           </div>
           <div>
             <div className="noteBody" dangerouslySetInnerHTML={{ __html: marked(this.props.note.text || '') }} />

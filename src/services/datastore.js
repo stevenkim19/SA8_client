@@ -13,28 +13,39 @@ let config = {
 Firebase.initializeApp(config);
 export const database = Firebase.database().ref('/');
 
+// passing data to front end
 export function fetchNotesFirebase(callback) {
   Firebase.database().ref('notes').on('value', (snapshot) => {
     const newNoteState = snapshot.val();
-    // do something with new note state
     callback(newNoteState);
   });
 }
 
-// Deleting notes
-export function deleteNotesFirebase() {
-  firebase.database().ref('notes').child(id).remove();
+// Delete a note in firebase
+export function deleteNotesFirebase(id) {
+  Firebase.database().ref('notes').child(id).remove();
 }
 
-// Creating a new note
-export function createNoteFirebase() {
-  firebase.database().ref('notes').on('value', (snapshot) => {
-    const newNote = snapshot.val();
-  });
+// Creating a new note & push it to firebase
+export function createNoteFirebase(txt) {
+  let newNote = {
+    title: txt,
+    text: '',
+    x: 100,
+    y: 100,
+    zIndex: 0,
+  };
+  Firebase.database().ref('notes').push(newNote);
 }
 
 // Updating notes
-export function updateNotesFirebase(id, fields, callback) {
-  firebase.database().ref('notes').on('value', (snapshot) => {
-  });
+export function updateNotesFirebase(id, note) {
+  Firebase.database().ref('notes').child(id).update(note);
+  // if (fields.x !== 100 || fields.y !== 100) {
+  //   console.log('moved!');
+  //   Firebase.database().ref('notes').child(id).update({
+  //     x: fields.x,
+  //     y: fields.y,
+  //   });
+  // }
 }

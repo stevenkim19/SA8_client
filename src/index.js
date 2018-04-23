@@ -16,61 +16,56 @@ class App extends Component {
     this.onDelete = this.onDelete.bind(this);
     this.onAdd = this.onAdd.bind(this);
     this.onUpdate = this.onUpdate.bind(this);
-    // this.deleteNotes = this.deleteNotes.bind(this);
   }
   // Calling fetchNotesFirebase from Firebase
   componentDidMount() {
     db.fetchNotesFirebase((notes) => {
-      console.log(notes);
-      this.setState({
-        notes: this.state.notes.set(this.state.id + 1, note),
-      });
+      this.setState({ notes: Immutable.Map(notes) });
     });
   }
 
   // Delete a note
   onDelete(id) {
-    this.setState({
-      notes: this.state.notes.delete(id),
-    });
+    // if firebase isn't connected
+    if (!db) {
+      this.setState({
+        notes: this.state.notes.delete(id),
+      });
+    } else { // read whatever's in firebase - indicate which note's ID to delete
+      db.deleteNotesFirebase(id);
+      console.log('Deleted note from database!');
+    }
   }
   // Add a note
   onAdd(txt) {
-    let note = {
-      title: txt,
-      text: 'dummy note!',
-      x: 100,
-      y: 100,
-      zIndex: 0,
-    };
-    this.setState({
-      notes: this.state.notes.set(this.state.id + 1, note),
-      id: this.state.id + 1,
-    });
+    if (!db) {
+      let note = {
+        title: txt,
+        text: 'dummy note!',
+        x: 100,
+        y: 100,
+        zIndex: 0,
+      };
+      this.setState({
+        notes: this.state.notes.set(this.state.id + 1, note),
+        id: this.state.id + 1,
+      });
+    } else {
+      db.createNoteFirebase(txt);
+    }
   }
-
-  // onAddGeneral(fields) {
-  //   this.setState({
-  //     notes: this.state.notes.set(),
-  //   });
-  // }
 
   // update text field with edited text
-  onUpdate(id, fields) {
-    this.setState({
-      notes: this.state.notes.update(id, (n) => { return Object.assign({}, n, fields); }),
-    });
+  onUpdate(id, fields, note) {
+    if (!db) {
+      this.setState({
+        notes: this.state.notes.update(id, (n) => { return Object.assign({}, n, fields); }),
+      });
+    } else {
+      console.log(fields);
+      db.updateNotesFirebase(id, Object.assign({}, this.state.notes.id, fields));
+    }
   }
-
-  // Calling deleteNotesFirebase from Firebase
-  // deleteNotes() {
-  //   db.deleteNotesFirebase((notes) => {
-  //     this.onDelete();
-  //   });
-  // }
-
-  // Calling deleteNotesFirebase from Firebase
-
 
   render() {
     return (

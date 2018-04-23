@@ -29,13 +29,19 @@
 #submitbtn:hover {
   box-shadow: 0 0 30px #212121;
 }
+.buttonslist {
+  display: flex;
+  justify-content: flex-end;
+}
 .titlepart {
   display: flex;
   flex-direction: row;
 }
 #trash {
   margin-left: 50px;
-  font-size: 20px;
+}
+#trash, #pencil, #drag {
+  font-size: 30px;
 }
 .editing {
   background-color: #B7ABAB;
